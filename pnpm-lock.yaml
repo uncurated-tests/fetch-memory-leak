@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      undici:
+        specifier: ^7.0.0
+        version: 7.0.0
+
+packages:
+
+  undici@7.0.0:
+    resolution: {integrity: sha512-c4xi3kWnQJrb7h2q8aJYKvUzmz7boCgz1cUCC6OwdeM5Tr2P0hDuthr2iut4ggqsz+Cnh20U/LoTzbKIdDS/Nw==}
+    engines: {node: '>=20.18.1'}
+
+snapshots:
+
+  undici@7.0.0: {}
