@@ -1,18 +1,30 @@
-const { fetch } = require('undici');
-async function getPhoto(i) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/photos/${i}`);
-  const status = res.status;;
-  const buffer = await res.arrayBuffer();
-  return { status, buffer };
+const https = require('https');
+
+function request(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      const { statusCode: status } = res;
+      if (status !== 200) {
+        res.resume();
+        reject(new Error(`Request failed with status ${status}`));
+        return;
+      }
+      let chunks = [];
+      res.on('data', (chunk) => { chunks.push(chunk); });
+      res.on('end', () => resolve({ status, buffer: Buffer.concat(chunks) }));
+    }).on('error', (e) => {
+      reject(e);
+    });
+  });
 }
 async function main() {
-  for (var i = 0; i <= 5000; i++) {
-    const res = await getPhoto(i);
+  for (var i = 0; i <= 3500; i++) {
+    const res = await request(`https://placehold.co/1000/png?text=${i}`);
     if (i % 50 === 0 && res.status && res.buffer) {
       console.log(
         i.toString().padStart(4, '0') + ' ' +
-        process.memoryUsage().rss.toString().padStart(9, '0')  + ' ' +
-        process.memoryUsage().heapUsed.toString().padStart(9, '0')  + ' ' +
+        process.memoryUsage().rss.toString().padStart(9, '0') + ' ' +
+        process.memoryUsage().heapUsed.toString().padStart(9, '0') + ' ' +
         process.memoryUsage().heapTotal.toString().padStart(9, '0')
       );
     }

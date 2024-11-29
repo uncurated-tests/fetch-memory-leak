@@ -1,6 +1,4 @@
 FROM --platform=linux/amd64 node:22.11-alpine AS base
 WORKDIR /app
-COPY package.json pnpm-lock.yaml example.cjs ./
-RUN corepack enable pnpm
-RUN pnpm install
+COPY example.cjs ./
 CMD ["node", "example.cjs"]
