@@ -1,6 +1,6 @@
 const { fetch } = require('undici');
 async function getPhoto(i) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/photos/${i}`);
+  const res = await fetch(`https://placehold.co/1000/png?text=${i}`);
   const status = res.status;;
   const buffer = await res.arrayBuffer();
   return { status, buffer };
